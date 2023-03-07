@@ -27,6 +27,20 @@ class CoffeeControllerTest {
     }
 
     @Test
-    void coffee() {
+    void coffeeWithoutParameter() throws Exception {
+        String expectedContent = "{\"id\":1,\"name\":\"latte\"}";
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/coffee"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(expectedContent));
+    }
+
+    @Test
+    void coffeeWithParameter() throws Exception {
+        String expectedContent = "{\"id\":2,\"name\":\"cappuccino\"}";
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/coffee").param("name","cappuccino"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(expectedContent));
     }
 }
